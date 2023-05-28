@@ -3,28 +3,32 @@ import AESForm from './AESForm';
 import BlowfishForm from './BlowfishForm';
 import ECCAndRSAForm from './ECCAndRSAForm';
 import Loader from './Loader';
+import CustomSelect from './CustomSelect';
+
+import './CryptoForm.css';
 
 const CryptoForm = () => {
   const [crypto, setCrypto] = React.useState('');
   const [loading, setLoading] = React.useState(false);
 
   return (
-    <div>
-      <label htmlFor='file'>Pick Algorithm</label>
-      <br />
-      <select
-        name='crypto'
-        id='crypto'
-        defaultValue=''
-        onChange={(e) => setCrypto(e.target.value)}
-      >
-        <option value=''>Select</option>
-        <option value='AES'>AES</option>
-        <option value='Blowfish'>Blowfish</option>
-        <option value='RSA'>RSA</option>
-        <option value='ECC'>ECC</option>
-      </select>
-      <br />
+    <div className='cryptoFormWrapper'>
+      <div className='formTitle'>Timer</div>
+      <div className='formSubtitle'>Algorithms</div>
+      <div className='algorithmsContainer'>
+        <CustomSelect
+          id='algorithm'
+          label='Symmetric'
+          labels={['AES', 'Blowfish']}
+          setOption={setCrypto}
+        />
+        <CustomSelect
+          id='algorithm'
+          label='Asymmetric'
+          labels={['RSA', 'ECC']}
+          setOption={setCrypto}
+        />
+      </div>
       {crypto === 'AES' && (
         <>
           <AESForm setLoading={setLoading} />

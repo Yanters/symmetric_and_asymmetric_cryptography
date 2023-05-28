@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dna } from 'react-loader-spinner';
+import { Dna, FidgetSpinner } from 'react-loader-spinner';
 import './Loader.css';
 
 const Loader = () => {
@@ -7,12 +7,22 @@ const Loader = () => {
     <div className='loaderWrapper'>
       <Dna
         visible={true}
-        height='80'
-        width='80'
+        height='220'
+        width='220'
         ariaLabel='dna-loading'
         wrapperStyle={{}}
         wrapperClass='dna-wrapper'
       />
+      {/* <FidgetSpinner
+        visible={true}
+        height='320'
+        width='320'
+        ariaLabel='dna-loading'
+        wrapperStyle={{}}
+        wrapperClass='dna-wrapper'
+        ballColors={['#000000', '#000000', '#000000']}
+        backgroundColor='#351ad1'
+      /> */}
     </div>
   );
 };

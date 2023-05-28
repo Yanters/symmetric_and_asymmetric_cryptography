@@ -15,42 +15,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  /* align-items: stretch; */
   justify-content: center;
   flex-wrap: wrap;
-}
-.item {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: center;
-  width: auto;
-  height: auto;
-  margin: 10px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  padding: 30px;
-  background-color: #fcfcfc;
-}
-
-.itemTitlesContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: auto;
-  margin-bottom: 20px;
-}
-
-.itemTitle {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-right: 10px;
-}
-
-.itemSubtitle {
-  font-size: 1.2rem;
-  font-weight: 400;
-  margin: 0 10px 0 10px;
-  color: #a0a0a0;
 }

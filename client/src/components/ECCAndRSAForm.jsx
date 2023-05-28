@@ -1,16 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { CryptoContext } from '../contexts/CryptoContext';
+import FilePicker from './FilePicker';
 
 const ECCForm = ({ type, setLoading }) => {
   const { addCrypto } = useContext(CryptoContext);
+  const [file, setFile] = useState(null);
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
     formData.append('file', e.target.file.files[0]);
-
-    console.log(formData);
 
     // send data to server
     try {
@@ -19,24 +19,23 @@ const ECCForm = ({ type, setLoading }) => {
         method: 'POST',
         body: formData,
       });
-      setLoading(false);
       const resData = await res.json();
-      console.log(resData);
       addCrypto(resData);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={onSubmit} encType='multipart/form-data' method='POST'>
-      <br />
-      <label htmlFor='file'>Pick File</label>
-      <br />
-      <input type='file' name='file' id='file' />
-      <br />
-
-      <button type='submit'>Encrypt</button>
+    <form onSubmit={onSubmit}>
+      <FilePicker label='Pick File' setFile={setFile} />
+      {file && (
+        <button type='submit' className='submitButton'>
+          Encrypt
+        </button>
+      )}
     </form>
   );
 };

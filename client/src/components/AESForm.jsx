@@ -1,9 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { CryptoContext } from '../contexts/CryptoContext';
+import CustomSelect from './CustomSelect';
+import FilePicker from './FilePicker';
 
 const AESForm = ({ setLoading }) => {
-  const [keySize, setKeySize] = useState('select');
+  const [keySize, setKeySize] = useState('');
   const [type, setType] = useState('');
+  const [file, setFile] = useState(null);
 
   const { addCrypto } = useContext(CryptoContext);
 
@@ -15,73 +18,45 @@ const AESForm = ({ setLoading }) => {
     formData.append('type', type);
     formData.append('file', e.target.file.files[0]);
 
-    console.log(formData);
-
     // send data to server
     try {
-      console.log(formData);
       setLoading(true);
       const res = await fetch('http://localhost:3001/api/AES', {
         method: 'POST',
         body: formData,
       });
-      setLoading(false);
       const resData = await res.json();
-      console.log(resData);
       addCrypto(resData);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={onSubmit} encType='multipart/form-data' method='POST'>
-      <label htmlFor='key_size'>Key Size</label>
-      <br />
-      <select
-        name='key_size'
-        id='key_size'
-        defaultValue='select'
-        onChange={(e) => setKeySize(e.target.value)}
-      >
-        <option value='select' disabled>
-          Select
-        </option>
-        <option value='128'>128</option>
-        <option value='192'>192</option>
-        <option value='256'>256</option>
-      </select>
-      <br />
-      {keySize !== 'select' && (
-        <>
-          <label htmlFor='type'>Type</label>
-          <br />
-          <select
-            name='type'
-            id='type'
-            defaultValue='select'
-            onChange={(e) => setType(e.target.value)}
-          >
-            <option value='select' disabled>
-              Select
-            </option>
-            <option value='CBC'>CBC</option>
-            <option value='CFB'>CFB</option>
-            <option value='CTR'>CTR</option>
-            <option value='ECB'>ECB</option>
-            <option value='OFB'>OFB</option>
-          </select>
-        </>
-      )}
-      <br />
-      {type !== '' && (
-        <>
-          <label htmlFor='file'>Pick File</label>
-          <br />
-          <input type='file' name='file' id='file' />
-          <br />
+    <form onSubmit={onSubmit}>
+      <CustomSelect
+        label='Type'
+        labels={['CBC', 'CFB', 'CTR', 'ECB', 'OFB']}
+        setOption={setType}
+      />
 
-          <button type='submit'>Encrypt</button>
+      {type !== '' && (
+        <CustomSelect
+          label='Key Size'
+          labels={['128', '192', '256']}
+          setOption={setKeySize}
+        />
+      )}
+      {keySize !== '' && (
+        <>
+          <FilePicker label='Pick File' setFile={setFile} />
+          {file && (
+            <button type='submit' className='submitButton'>
+              Encrypt
+            </button>
+          )}
         </>
       )}
     </form>

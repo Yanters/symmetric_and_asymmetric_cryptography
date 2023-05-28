@@ -7,7 +7,7 @@ function App() {
     <CryptoProvider>
       <main>
         <div className='mainContainer'>
-          <h1>File upload</h1>
+          
           <CryptoForm />
           <CryptoHistory />
         </div>

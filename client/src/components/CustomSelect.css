@@ -1,0 +1,54 @@
+.CustomSelectWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.CustomSelect {
+  padding: 10px;
+}
+
+.CustomSelect input[type='radio'] {
+  display: none;
+}
+
+.CustomSelect label {
+  display: inline-block;
+  padding: 0.5em 1em;
+  margin: 0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.CustomSelect label:hover {
+  /* change background-color: to blueish */
+  background-color: #fafafa;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid #4b9dea;
+}
+
+.CustomSelect .CustomSelectItem:first-of-type label {
+  border-radius: 0.5em 0 0 0.5em;
+}
+
+.CustomSelect .CustomSelectItem:last-of-type label {
+  border-radius: 0 0.5em 0.5em 0;
+}
+
+.CustomSelect input[type='radio']:checked + label {
+  /* change background-color: to blueish */
+  background-color: #4b9dea;
+  color: white;
+  border: 1px solid #4b9dea;
+}
+
+.SelectTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.CustomSelectItem {
+  display: inline-block;
+}

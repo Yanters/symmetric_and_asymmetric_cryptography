@@ -1,0 +1,61 @@
+.fileUploadTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.fileUploadWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.fileUpload {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.fileUpload input[type='file'] {
+  display: none;
+}
+
+.fileUpload label {
+  display: inline-block;
+  padding: 0.4em 3em;
+  margin: 0;
+  border: 1px solid #4b9dea;
+  cursor: pointer;
+  background-color: #4595df;
+  border-radius: 0.5em;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+
+}
+
+.fileInfoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  height: auto;
+}
+
+.fileInfoContainer div {
+  margin: 0 10px;
+}
+
+.fileName {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.fileSize {
+  font-size: 0.8rem;
+  font-weight: 400;
+}

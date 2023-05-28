@@ -1,8 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { CryptoContext } from '../contexts/CryptoContext';
+import CustomSelect from './CustomSelect';
+import FilePicker from './FilePicker';
 
 const AESForm = ({ setLoading }) => {
   const [type, setType] = useState('');
+  const [file, setFile] = useState(null);
 
   const { addCrypto } = useContext(CryptoContext);
 
@@ -11,52 +14,35 @@ const AESForm = ({ setLoading }) => {
 
     const formData = new FormData();
     formData.append('type', type);
-    formData.append('file', e.target.file.files[0]);
-
-    console.log(formData);
+    formData.append('file', file);
 
     // send data to server
     try {
-      console.log(formData);
       setLoading(true);
       const res = await fetch('http://localhost:3001/api/Blowfish', {
         method: 'POST',
         body: formData,
       });
-      setLoading(false);
       const resData = await res.json();
-      console.log(resData);
       addCrypto(resData);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={onSubmit} encType='multipart/form-data' method='POST'>
-      <label htmlFor='type'>Type</label>
-      <br />
-      <select
-        name='type'
-        id='type'
-        defaultValue='select'
-        onChange={(e) => setType(e.target.value)}
-      >
-        <option value='select' disabled>
-          Select
-        </option>
-        <option value='CBC'>CBC</option>
-        <option value='ECB'>ECB</option>
-      </select>
-      <br />
+    <form onSubmit={onSubmit}>
+      <CustomSelect label='Type' labels={['CBC', 'ECB']} setOption={setType} />
       {type !== '' && (
         <>
-          <label htmlFor='file'>Pick File</label>
-          <br />
-          <input type='file' name='file' id='file' />
-          <br />
-
-          <button type='submit'>Encrypt</button>
+          <FilePicker label='Pick File' setFile={setFile} />
+          {file && (
+            <button type='submit' className='submitButton'>
+              Encrypt
+            </button>
+          )}
         </>
       )}
     </form>

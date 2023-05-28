@@ -1,0 +1,82 @@
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  background-color: #fcfcfc;
+}
+
+.itemTitlesContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+  margin-bottom: 5px;
+}
+
+.itemTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.itemSubtitle {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin: 0 10px 0 10px;
+  color: #a0a0a0;
+}
+
+.itemSize {
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-style: oblique;
+  margin: 5px auto;
+  color: #202020;
+}
+
+.timeContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 3px auto;
+  padding: 5px;
+}
+
+.timeElement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2px auto;
+}
+
+.timeItemCaption {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0 10px;
+}
+
+.timeItemValue {
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 5px 10px;
+}
+
+.timeTimes {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 2px auto;
+}
