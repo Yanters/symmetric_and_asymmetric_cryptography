@@ -5,15 +5,15 @@ import './Loader.css';
 const Loader = () => {
   return (
     <div className='loaderWrapper'>
-      <Dna
+      {/* <Dna
         visible={true}
         height='220'
         width='220'
         ariaLabel='dna-loading'
         wrapperStyle={{}}
         wrapperClass='dna-wrapper'
-      />
-      {/* <FidgetSpinner
+      /> */}
+      <FidgetSpinner
         visible={true}
         height='320'
         width='320'
@@ -22,7 +22,7 @@ const Loader = () => {
         wrapperClass='dna-wrapper'
         ballColors={['#000000', '#000000', '#000000']}
         backgroundColor='#351ad1'
-      /> */}
+      />
     </div>
   );
 };

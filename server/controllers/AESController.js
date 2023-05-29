@@ -94,10 +94,11 @@ module.exports.encrypt = (req, res) => {
   });
   res.send({
     alg: 'AES',
-    encTime: encStop[0] * 1000 + encStop[1] / 1000000 + ' ms',
-    decTime: decStop[0] * 1000 + decStop[1] / 1000000 + ' ms',
+    encTime: encStop[0] * 1000 + encStop[1] / 1000000,
+    decTime: decStop[0] * 1000 + decStop[1] / 1000000,
+    totalTime: (encStop[0] + decStop[0]) * 1000 + (encStop[1] + decStop[1]) / 1000000,
     type: req.body.type,
     keySize: req.body.keySize,
-    fileSize: Buffer.byteLength(req.files[0].buffer)
+    fileSize: Buffer.byteLength(req.files[0].buffer),
   });
 };

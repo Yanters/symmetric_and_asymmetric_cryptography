@@ -14,8 +14,8 @@
 .itemsContainer {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  /* align-items: stretch; */
+  /* align-items: center; */
+  align-items: stretch;
   justify-content: center;
   flex-wrap: wrap;
 }

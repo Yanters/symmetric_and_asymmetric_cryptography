@@ -3,6 +3,11 @@ import React from 'react';
 import './CryptoCard.css';
 
 const CryptoCard = ({ crypto }) => {
+
+  if (!crypto) {
+    return null;
+  }
+
   const formatSizeUnits = (bytes) => {
     if (bytes >= 1073741824) {
       bytes = (bytes / 1073741824).toFixed(2) + ' GB';
@@ -39,6 +44,12 @@ const CryptoCard = ({ crypto }) => {
       <div className='itemSize'>
         {formatSizeUnits(parseInt(crypto.fileSize))}
       </div>
+      <div className='timeElement'>
+        <div className='timeItemCaption'>Total Time</div>
+        <div className='timeItemValue'>
+          {formatTimeUnits(parseFloat(crypto.totalTime))}
+        </div>
+      </div>
       {crypto.keyTime ? (
         <div className='timeContainer'>
           <div className='timeElement'>
@@ -57,6 +68,7 @@ const CryptoCard = ({ crypto }) => {
           </div>
         </div>
       ) : null}
+
       <div className='timeContainer'>
         <div className='timeElement'>
           <div className='timeItemCaption'>Encryption</div>
