@@ -10,7 +10,8 @@ const app = express();
 const AESrouter = require('./routes/AES');
 const RSArouter = require('./routes/RSA');
 const ECCrouter = require('./routes/ECC');
-const BlowfishRouter = require('./routes/Blowfish')
+const BlowfishRouter = require('./routes/Blowfish');
+const RSAHybridRouter = require('./routes/RSAHybrid');
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -21,6 +22,7 @@ app.use('/api', AESrouter);
 app.use('/api', RSArouter);
 app.use('/api', ECCrouter);
 app.use('/api', BlowfishRouter);
+app.use('/api', RSAHybridRouter);
 
 app.get('/', (req, res) => {
   res.send('Application works!');

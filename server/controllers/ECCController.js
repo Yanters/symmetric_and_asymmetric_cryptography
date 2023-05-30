@@ -1,45 +1,27 @@
 const crypto = require('crypto');
 const eccrypto = require('eccrypto');
+const { Worker } = require('worker_threads');
 
 module.exports.encrypt = async (req, res) => {
-  let keyStart = process.hrtime();
-  let privateKey = eccrypto.generatePrivate();
-  let publicKey = eccrypto.getPublic(privateKey);
-  let keyStop = process.hrtime(keyStart);
-  console.log(
-    'Key generation time: ' + (keyStop[0] * 1000 + keyStop[1] / 1000000) + ' ms'
-  );
+  let result = await new Promise((resolve, reject) => {
+    const worker = new Worker('./workers/ECCWorker.js', {
+      workerData: {
+        file: req.files[0].buffer,
+      }
+    })
+    worker.postMessage('start');
 
-  let encryptStart = process.hrtime();
-  let encryptedData = await eccrypto.encrypt(publicKey, req.files[0].buffer);
-  let encryptStop = process.hrtime(encryptStart);
-  console.log(
-    'Encryption time: ' +
-      (encryptStop[0] * 1000 + encryptStop[1] / 1000000) +
-      ' ms'
-  );
-
-  console.log(req.files[0].buffer);
-  console.log(encryptedData);
-
-  let decryptStart = process.hrtime();
-  let decryptedData = await eccrypto.decrypt(privateKey, encryptedData);
-  let decryptStop = process.hrtime(decryptStart);
-  console.log(
-    'Decryption time: ' +
-      (decryptStop[0] * 1000 + decryptStop[1] / 1000000) +
-      ' ms'
-  );
-
-  console.log(req.files[0].buffer);
-  console.log(decryptedData);
+    worker.once('message', (data) => {
+      resolve(data);
+    })
+  })
 
   res.send({
     alg: 'ECC',
-    encTime: encryptStop[0] * 1000 + encryptStop[1] / 1000000,
-    decTime: decryptStop[0] * 1000 + decryptStop[1] / 1000000,
-    keyTime: keyStop[0] * 1000 + keyStop[1] / 1000000,
-    totalTime: (keyStop[0] + encryptStop[0] + decryptStop[0]) * 1000 + (keyStop[1] + encryptStop[1] + decryptStop[1]) / 1000000,
+    encTime: result.encTime,
+    decTime: result.decTime,
+    keyTime: result.keyTime,
+    totalTime: result.totalTime,
     fileSize: Buffer.byteLength(req.files[0].buffer),
   });
 };
