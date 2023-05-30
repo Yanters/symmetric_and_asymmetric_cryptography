@@ -9,6 +9,13 @@ const FilePicker = ({ label, setFile }) => {
     size: '',
   });
 
+  const convertFileName = (name) => {
+    if (name.length > 20) {
+      return name.slice(0, 20) + '...';
+    }
+    return name;
+  };
+
   const formatSizeUnits = (bytes) => {
     if (bytes >= 1073741824) {
       bytes = (bytes / 1073741824).toFixed(2) + ' GB';
@@ -59,8 +66,8 @@ const FilePicker = ({ label, setFile }) => {
         <input type='file' name='file' id='file' onChange={onFileChange} />
         <label htmlFor='file'>Upload</label>
         <div className='fileInfoContainer'>
-          <div className='fileName'>
-            {fileInfo.name ? fileInfo.name : 'NoFile.txt'}
+          <div className='fileName' title={fileInfo.name}>
+            {fileInfo.name ? convertFileName(fileInfo.name) : 'NoFile.txt'}
           </div>
           <div className='fileSize'>
             {fileInfo.size ? fileInfo.size : '0 KB'}
