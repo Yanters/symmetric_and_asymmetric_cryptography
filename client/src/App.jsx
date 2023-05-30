@@ -3,6 +3,9 @@ import CryptoHistory from './components/CryptoHistory';
 import Statistic from './components/Statistic';
 import { CryptoProvider } from './contexts/CryptoContext';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   return (
     <CryptoProvider>
@@ -13,6 +16,7 @@ function App() {
           <CryptoHistory />
         </div>
       </main>
+      <ToastContainer />
     </CryptoProvider>
   );
 }

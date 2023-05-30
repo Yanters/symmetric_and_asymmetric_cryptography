@@ -27,11 +27,18 @@ form {
   padding: 10px;
   border-radius: 5px;
   border: none;
-  background-color: #4b9dea;
+  background-color: #2f8be1;
+  border: 1px solid #2f8be1;
   color: white;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+}
+
+.submitButton:hover {
+  background-color: #137cde;
+  transition: 0.3s;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .formTitle {
@@ -52,4 +59,13 @@ form {
   align-items: center;
   justify-content: center;
   margin: 10px 0;
+}
+
+.submitButtonWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+  width: 100%;
 }

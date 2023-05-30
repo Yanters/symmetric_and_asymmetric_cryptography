@@ -1,15 +1,20 @@
 import React, { useContext } from 'react';
 import { CryptoContext } from '../contexts/CryptoContext';
+import { motion } from 'framer-motion';
 
-import './CryptoHistory.css';
+import '../styles/CryptoHistory.css';
 import CryptoCard from './CryptoCard';
 
 const CryptoHistory = () => {
   const { crypto } = useContext(CryptoContext);
 
-
   return (
-    <div className='cryptoHistoryWrapper'>
+    <motion.div
+      className='cryptoHistoryWrapper'
+      initial={{ opacity: 0, y: 150 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
       <h1>Crypto History</h1>
       {crypto.length > 0 ? (
         <div className='itemsContainer'>
@@ -20,7 +25,7 @@ const CryptoHistory = () => {
       ) : (
         <p>No crypto history</p>
       )}
-    </div>
+    </motion.div>
   );
 };
 

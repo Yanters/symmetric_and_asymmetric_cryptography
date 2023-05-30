@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { CryptoContext } from '../contexts/CryptoContext';
 import FilePicker from './FilePicker';
+import SubmitButton from './SubmitButton';
+import { toast } from 'react-toastify';
 
 const ECCForm = ({ type, setLoading }) => {
   const { addCrypto } = useContext(CryptoContext);
@@ -15,10 +17,24 @@ const ECCForm = ({ type, setLoading }) => {
     // send data to server
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:3001/api/${type}`, {
-        method: 'POST',
-        body: formData,
-      });
+      const res = await toast.promise(
+        fetch(`http://localhost:3001/api/${type}`, {
+          method: 'POST',
+          body: formData,
+        }),
+        {
+          pending: 'Encrypting file...',
+          success: 'File encrypted successfully',
+          error: 'Error encrypting file',
+        },
+        {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        }
+      );
       const resData = await res.json();
       addCrypto(resData);
     } catch (err) {
@@ -31,11 +47,7 @@ const ECCForm = ({ type, setLoading }) => {
   return (
     <form onSubmit={onSubmit}>
       <FilePicker label='Pick File' setFile={setFile} />
-      {file && (
-        <button type='submit' className='submitButton'>
-          Encrypt
-        </button>
-      )}
+      {file && <SubmitButton text='Encrypt' />}
     </form>
   );
 };

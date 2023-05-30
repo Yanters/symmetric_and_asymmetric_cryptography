@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 
-import './FilePicker.css';
+import '../styles/FilePicker.css';
 
 const FilePicker = ({ label, setFile }) => {
   const [fileInfo, setFileInfo] = useState({
@@ -39,10 +40,21 @@ const FilePicker = ({ label, setFile }) => {
   };
 
   return (
-    <div className='fileUploadWrapper'>
-      <label htmlFor='file' className='fileUploadTitle'>
+    <motion.div
+      className='fileUploadWrapper'
+      initial={{ height: 0, opacity: 0 }}
+      animate={{ height: 'auto', opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.label
+        htmlFor='file'
+        className='fileUploadTitle'
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
         {label}
-      </label>
+      </motion.label>
       <div className='fileUpload'>
         <input type='file' name='file' id='file' onChange={onFileChange} />
         <label htmlFor='file'>Upload</label>
@@ -55,7 +67,7 @@ const FilePicker = ({ label, setFile }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

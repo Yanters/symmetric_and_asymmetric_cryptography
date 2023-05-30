@@ -1,9 +1,9 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
-import './CryptoCard.css';
+import '../styles/CryptoCard.css';
 
 const CryptoCard = ({ crypto }) => {
-
   if (!crypto) {
     return null;
   }
@@ -36,7 +36,12 @@ const CryptoCard = ({ crypto }) => {
   };
 
   return (
-    <div className='item'>
+    <motion.div
+      className='item'
+      initial={{ opacity: 0, y: 150 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
       <div className='itemTitlesContainer'>
         <div className='itemTitle'>{crypto.alg}</div>
         {crypto.type ? <div className='itemSubtitle'>{crypto.type}</div> : null}
@@ -44,6 +49,14 @@ const CryptoCard = ({ crypto }) => {
       <div className='itemSize'>
         {formatSizeUnits(parseInt(crypto.fileSize))}
       </div>
+      {crypto.keySize ? (
+        <div className='timeContainer'>
+          <div className='timeElement'>
+            <div className='timeItemCaption'>Key Size</div>
+            <div className='timeItemValue'>{crypto.keySize} bits</div>
+          </div>
+        </div>
+      ) : null}
       <div className='timeElement'>
         <div className='timeItemCaption'>Total Time</div>
         <div className='timeItemValue'>
@@ -60,15 +73,6 @@ const CryptoCard = ({ crypto }) => {
           </div>
         </div>
       ) : null}
-      {crypto.keySize ? (
-        <div className='timeContainer'>
-          <div className='timeElement'>
-            <div className='timeItemCaption'>Key Size</div>
-            <div className='timeItemValue'>{crypto.keySize} bits</div>
-          </div>
-        </div>
-      ) : null}
-
       <div className='timeContainer'>
         <div className='timeElement'>
           <div className='timeItemCaption'>Encryption</div>
@@ -83,7 +87,7 @@ const CryptoCard = ({ crypto }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

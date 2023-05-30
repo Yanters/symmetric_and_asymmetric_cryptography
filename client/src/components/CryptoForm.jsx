@@ -5,7 +5,7 @@ import ECCAndRSAForm from './ECCAndRSAForm';
 import Loader from './Loader';
 import CustomSelect from './CustomSelect';
 
-import './CryptoForm.css';
+import '../styles/CryptoForm.css';
 
 const CryptoForm = () => {
   const [crypto, setCrypto] = React.useState('');

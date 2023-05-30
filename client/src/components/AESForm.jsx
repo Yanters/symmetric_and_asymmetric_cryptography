@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 import { CryptoContext } from '../contexts/CryptoContext';
 import CustomSelect from './CustomSelect';
 import FilePicker from './FilePicker';
+import SubmitButton from './SubmitButton';
+import { toast } from 'react-toastify';
 
 const AESForm = ({ setLoading }) => {
   const [keySize, setKeySize] = useState('');
@@ -21,10 +23,24 @@ const AESForm = ({ setLoading }) => {
     // send data to server
     try {
       setLoading(true);
-      const res = await fetch('http://localhost:3001/api/AES', {
-        method: 'POST',
-        body: formData,
-      });
+      const res = await toast.promise(
+        fetch('http://localhost:3001/api/AES', {
+          method: 'POST',
+          body: formData,
+        }),
+        {
+          pending: 'Encrypting file...',
+          success: 'File encrypted successfully',
+          error: 'Error encrypting file',
+        },
+        {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        }
+      );
       const resData = await res.json();
       addCrypto(resData);
     } catch (err) {
@@ -52,11 +68,7 @@ const AESForm = ({ setLoading }) => {
       {keySize !== '' && (
         <>
           <FilePicker label='Pick File' setFile={setFile} />
-          {file && (
-            <button type='submit' className='submitButton'>
-              Encrypt
-            </button>
-          )}
+          {file && <SubmitButton text='Encrypt' />}
         </>
       )}
     </form>

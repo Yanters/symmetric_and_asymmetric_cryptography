@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dna, FidgetSpinner } from 'react-loader-spinner';
-import './Loader.css';
+import '../styles/Loader.css';
 
 const Loader = () => {
   return (
