@@ -40,10 +40,12 @@ function RSA(file){
   console.log(decryptedData);
 
   return{
+    alg: 'RSA',
     encTime: encryptStop[0] * 1000 + encryptStop[1] / 1000000,
     decTime: decryptStop[0] * 1000 + decryptStop[1] / 1000000,
     keyTime: keyStop[0] * 1000 + keyStop[1] / 1000000,
     totalTime: (keyStop[0] + encryptStop[0] + decryptStop[0]) * 1000 + (keyStop[1] + encryptStop[1] + decryptStop[1]) / 1000000,
+    fileSize: Buffer.byteLength(file),
   }
 }
 

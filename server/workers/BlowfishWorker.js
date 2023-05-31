@@ -46,9 +46,12 @@ function BlowfishFun(file, type){
   console.log(Buffer.from(decrypted));
 
   return {
+    alg: 'Blowfish',
+    type: type,
     encTime: encryptStop[0] * 1000 + encryptStop[1] / 1000000,
     decTime: decryptStop[0] * 1000 + decryptStop[1] / 1000000,
     totalTime: (encryptStop[0] + decryptStop[0]) * 1000 + (encryptStop[1] + decryptStop[1]) / 1000000,
+    fileSize: Buffer.byteLength(file),
   }
 }
 

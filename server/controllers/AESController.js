@@ -27,14 +27,5 @@ module.exports.encrypt = async (req, res) => {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
   });
-  // res.send({
-  //   // alg: 'AES',
-  //   // encTime: result.encTime,
-  //   // decTime: result.decTime,
-  //   // totalTime: result.totalTime,
-  //   // type: req.body.type,
-  //   // keySize: req.body.keySize,
-  //   // fileSize: Buffer.byteLength(req.files[0].buffer),
-  // });
   res.send(results);
 };
