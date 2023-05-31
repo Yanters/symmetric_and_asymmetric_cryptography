@@ -23,9 +23,9 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
-const Statistic = () => {
+const Statistic = ({ algSelected, setAlgSelected }) => {
   const { crypto } = useContext(CryptoContext);
-  const [algSelected, setAlgSelected] = useState('All'); // ['All', 'AES', 'Blowfish', 'RSA', 'ECC']
+  // const [algSelected, setAlgSelected] = useState('All'); // ['All', 'AES', 'Blowfish', 'RSA', 'ECC']
 
   //  0 - alg AES, 1 - alg Blowfish, 2 - RSA, 3 - alg ECC
   const AESData = crypto.filter((crypto) => crypto.alg === 'AES');

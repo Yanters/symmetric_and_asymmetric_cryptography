@@ -5,8 +5,16 @@ import { motion } from 'framer-motion';
 import '../styles/CryptoHistory.css';
 import CryptoCard from './CryptoCard';
 
-const CryptoHistory = () => {
+const CryptoHistory = ({ algSelected }) => {
   const { crypto } = useContext(CryptoContext);
+
+  const data = crypto.filter((crypto) => {
+    if (algSelected === 'All') {
+      return crypto;
+    } else {
+      return crypto.alg === algSelected;
+    }
+  });
 
   return (
     <motion.div
@@ -16,9 +24,9 @@ const CryptoHistory = () => {
       viewport={{ once: true }}
     >
       <h1>Crypto History</h1>
-      {crypto.length > 0 ? (
+      {data.length > 0 ? (
         <div className='itemsContainer'>
-          {crypto.map((crypto, index) => (
+          {data.map((crypto, index) => (
             <CryptoCard key={index} crypto={crypto} />
           ))}
         </div>

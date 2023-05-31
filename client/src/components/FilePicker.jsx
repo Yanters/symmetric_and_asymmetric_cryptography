@@ -9,8 +9,6 @@ const FilePicker = ({ label, setFile }) => {
     size: '',
   });
 
-  console.log(filesInfo);
-
   const convertFileName = (name) => {
     if (name.length > 20) {
       return name.slice(0, 20) + '...';
