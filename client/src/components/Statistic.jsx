@@ -89,7 +89,13 @@ const Statistic = ({ algSelected, setAlgSelected }) => {
             width={1000}
           >
             <CartesianGrid />
-            <XAxis type='number' dataKey='fileSize' name='size' unit='bytes' />
+            <XAxis
+              type='number'
+              dataKey='fileSize'
+              name='size'
+              unit='KB'
+              tickFormatter={(value) => (value / 1024).toFixed(0)}
+            />
             <YAxis
               yAxisId='left'
               type='number'
