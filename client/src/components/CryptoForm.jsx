@@ -25,7 +25,7 @@ const CryptoForm = () => {
         <CustomSelect
           id='algorithm'
           label='Asymmetric'
-          labels={['RSA', 'ECC']}
+          labels={['RSA', 'RSA*', 'ECC']}
           setOption={setCrypto}
         />
       </div>
@@ -39,7 +39,7 @@ const CryptoForm = () => {
           <BlowfishForm setLoading={setLoading} />
         </>
       )}
-      {crypto === 'RSA' || crypto === 'ECC' ? (
+      {crypto === 'RSA' || crypto === 'ECC' || crypto === 'RSA*' ? (
         <>
           <ECCAndRSAForm type={crypto} setLoading={setLoading} />
         </>

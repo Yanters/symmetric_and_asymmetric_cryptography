@@ -32,6 +32,7 @@ const Statistic = () => {
   const BlowfishData = crypto.filter((crypto) => crypto.alg === 'Blowfish');
   const RSAData = crypto.filter((crypto) => crypto.alg === 'RSA');
   const ECCData = crypto.filter((crypto) => crypto.alg === 'ECC');
+  const RSAStarData = crypto.filter((crypto) => crypto.alg === 'RSA*');
 
   const checkIfSelectedDataIsEmpty = () => {
     if (algSelected === 'All') {
@@ -39,7 +40,8 @@ const Statistic = () => {
         AESData.length > 0 ||
         BlowfishData.length > 0 ||
         RSAData.length > 0 ||
-        ECCData.length > 0
+        ECCData.length > 0 ||
+        RSAStarData.length > 0
       );
     } else if (algSelected === 'AES') {
       return AESData.length > 0;
@@ -49,6 +51,8 @@ const Statistic = () => {
       return RSAData.length > 0;
     } else if (algSelected === 'ECC') {
       return ECCData.length > 0;
+    } else if (algSelected === 'RSA*') {
+      return RSAStarData.length > 0;
     }
   };
 
@@ -63,7 +67,7 @@ const Statistic = () => {
       <CustomSelect
         id='statAlgorithm'
         label='Pick algorithm'
-        labels={['All', 'AES', 'Blowfish', 'RSA', 'ECC']}
+        labels={['All', 'AES', 'Blowfish', 'RSA', 'RSA*', 'ECC']}
         defaultOption='All'
         setOption={setAlgSelected}
       />
@@ -121,6 +125,12 @@ const Statistic = () => {
                 />
                 <Scatter
                   yAxisId='left'
+                  name='RSA*'
+                  data={RSAStarData}
+                  fill='#ef1ab9'
+                />
+                <Scatter
+                  yAxisId='left'
                   name='ECC'
                   data={ECCData}
                   fill='#3481f6'
@@ -154,6 +164,13 @@ const Statistic = () => {
                 data={ECCData}
                 fill='#3481f6'
               />
+            ) : algSelected === 'RSA*' ? (
+              <Scatter
+                yAxisId='left'
+                name='RSA*'
+                data={RSAStarData}
+                fill='#ef1ab9'
+              />
             ) : null}
             <Legend />
           </ScatterChart>
@@ -171,7 +188,6 @@ const Statistic = () => {
             // forever animation
             animate={{
               textShadow: ['0px 0px 0px #dcdcdc', '200px 20px 20px #dcdcdc'],
-
             }}
             transition={{ duration: 5, repeat: Infinity }}
           >
