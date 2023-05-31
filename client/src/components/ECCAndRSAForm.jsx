@@ -12,7 +12,10 @@ const ECCForm = ({ type, setLoading }) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('file', e.target.file.files[0]);
+    // append every file to formData
+    for (let i = 0; i < file.length; i++) {
+      formData.append('file', file[i]);
+    }
 
     // send data to server
     try {
@@ -23,9 +26,9 @@ const ECCForm = ({ type, setLoading }) => {
           body: formData,
         }),
         {
-          pending: 'Encrypting file...',
-          success: 'File encrypted successfully',
-          error: 'Error encrypting file',
+          pending: 'Doing crazy calculations...',
+          success: 'Timing calculations was successful',
+          error: 'Error occurred',
         },
         {
           position: 'top-right',
@@ -36,7 +39,10 @@ const ECCForm = ({ type, setLoading }) => {
         }
       );
       const resData = await res.json();
-      addCrypto(resData);
+      // add every element of resData array to context
+      resData.forEach((crypto) => {
+        addCrypto(crypto);
+      });
     } catch (err) {
       console.log(err);
     } finally {

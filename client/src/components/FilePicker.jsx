@@ -4,10 +4,12 @@ import { motion } from 'framer-motion';
 import '../styles/FilePicker.css';
 
 const FilePicker = ({ label, setFile }) => {
-  const [fileInfo, setFileInfo] = useState({
+  const [filesInfo, setFilesInfo] = useState({
     name: '',
     size: '',
   });
+
+  console.log(filesInfo);
 
   const convertFileName = (name) => {
     if (name.length > 20) {
@@ -30,20 +32,23 @@ const FilePicker = ({ label, setFile }) => {
   };
 
   const onFileChange = (e) => {
-    if (!e.target.files[0]) {
+    // check if any file is selected
+    if (e.target.files.length === 0) {
       setFile(null);
-      setFileInfo({
-        name: '',
-        size: '',
-      });
+      setFilesInfo({});
       return;
     }
-    setFile(e.target.files[0]);
-    // set file name and size
-    setFileInfo({
-      name: e.target.files[0].name,
-      size: formatSizeUnits(e.target.files[0].size),
-    });
+
+    setFile(e.target.files);
+    // get from every file the name and size and store it state
+    setFilesInfo([
+      ...Array.from(e.target.files).map((file) => {
+        return {
+          name: convertFileName(file.name),
+          size: formatSizeUnits(file.size),
+        };
+      }),
+    ]);
   };
 
   return (
@@ -63,15 +68,32 @@ const FilePicker = ({ label, setFile }) => {
         {label}
       </motion.label>
       <div className='fileUpload'>
-        <input type='file' name='file' id='file' onChange={onFileChange} />
+        <input
+          type='file'
+          name='file'
+          id='file'
+          onChange={onFileChange}
+          multiple={true}
+        />
         <label htmlFor='file'>Upload</label>
         <div className='fileInfoContainer'>
-          <div className='fileName' title={fileInfo.name}>
-            {fileInfo.name ? convertFileName(fileInfo.name) : 'NoFile.txt'}
-          </div>
-          <div className='fileSize'>
-            {fileInfo.size ? fileInfo.size : '0 KB'}
-          </div>
+          {filesInfo.length > 0 ? (
+            filesInfo.map((file, index) => (
+              <div key={index} className='fileElement'>
+                <div className='fileName' title={file.name}>
+                  {file.name}
+                </div>
+                <div className='fileSize'>{file.size}</div>
+              </div>
+            ))
+          ) : (
+            <div className='fileElement' key={0}>
+              <div className='fileName' title='NoFile.txt'>
+                NoFile.txt
+              </div>
+              <div className='fileSize'>0 KB</div>
+            </div>
+          )}
         </div>
       </div>
     </motion.div>
