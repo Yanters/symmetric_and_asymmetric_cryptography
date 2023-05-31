@@ -79,9 +79,13 @@ function AES(file, type, keySize){
   console.log(decryptedData)
 
   return {
+    alg: 'AES',
     encTime: encStop[0] * 1000 + encStop[1] / 1000000,
     decTime: decStop[0] * 1000 + decStop[1] / 1000000,
     totalTime: (encStop[0] + decStop[0]) * 1000 + (encStop[1] + decStop[1]) / 1000000,
+    type: type,
+    keySize: keySize,
+    fileSize: Buffer.byteLength(file)
   }
 }
 
