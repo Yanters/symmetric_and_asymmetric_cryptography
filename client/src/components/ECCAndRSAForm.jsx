@@ -3,6 +3,7 @@ import { CryptoContext } from '../contexts/CryptoContext';
 import FilePicker from './FilePicker';
 import SubmitButton from './SubmitButton';
 import { toast } from 'react-toastify';
+import { AnimatePresence } from 'framer-motion';
 
 const ECCForm = ({ type, setLoading }) => {
   const { addCrypto } = useContext(CryptoContext);
@@ -53,7 +54,9 @@ const ECCForm = ({ type, setLoading }) => {
   return (
     <form onSubmit={onSubmit}>
       <FilePicker label='Pick File' setFile={setFile} />
-      {file && <SubmitButton text='Encrypt' />}
+      <AnimatePresence>
+        {file && <SubmitButton text='Encrypt' />}
+      </AnimatePresence>
     </form>
   );
 };

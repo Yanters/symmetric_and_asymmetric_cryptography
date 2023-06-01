@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IoMdArrowDropdown, IoMdArrowDropleft } from 'react-icons/io';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const CollapseList = ({ filesInfo, convertFileName }) => {
   const [collapsed, setCollapsed] = useState(true);
@@ -15,7 +15,7 @@ const CollapseList = ({ filesInfo, convertFileName }) => {
           <div className='fileSize'>0 KB</div>
         </div>
       ) : (
-        <>
+        <AnimatePresence>
           <motion.div
             className='fileElement'
             initial={{ opacity: 0 }}
@@ -31,23 +31,22 @@ const CollapseList = ({ filesInfo, convertFileName }) => {
                 className='collapseIcon'
                 onClick={() => setCollapsed(!collapsed)}
               />
-            ) : (
+            ) : filesInfo.length > 1 ? (
               <IoMdArrowDropleft
                 className='collapseIcon'
                 onClick={() => setCollapsed(!collapsed)}
               />
-            )}
+            ) : null}
           </motion.div>
           {!collapsed &&
             filesInfo.slice(1).map((file, index) => (
               <motion.div
+                key={index + 1}
                 className='fileElement'
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 transition={{ duration: 0.5 }}
                 exit={{ opacity: 0, height: 0 }}
-                key={index + 1}
-                // on component remove, animate it out
               >
                 <div className='fileName' title={file.name}>
                   {convertFileName(file.name)}
@@ -55,7 +54,7 @@ const CollapseList = ({ filesInfo, convertFileName }) => {
                 <div className='fileSize'>{file.size}</div>
               </motion.div>
             ))}
-        </>
+        </AnimatePresence>
       )}
     </div>
   );

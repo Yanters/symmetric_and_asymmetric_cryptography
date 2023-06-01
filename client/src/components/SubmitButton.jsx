@@ -7,7 +7,9 @@ const SubmitButton = ({ text }) => {
       initial={{ height: 0 }}
       animate={{ height: 'auto' }}
       transition={{ duration: 0.5 }}
+      exit={{ opacity: 0, height: 0 }}
       className='submitButtonWrapper'
+      key='submitButtonWrapper'
     >
       <motion.button
         type='submit'

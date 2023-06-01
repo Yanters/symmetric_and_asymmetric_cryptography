@@ -4,6 +4,7 @@ import CustomSelect from './CustomSelect';
 import FilePicker from './FilePicker';
 import SubmitButton from './SubmitButton';
 import { toast } from 'react-toastify';
+import { AnimatePresence } from 'framer-motion';
 
 const AESForm = ({ setLoading }) => {
   const [type, setType] = useState('');
@@ -61,7 +62,9 @@ const AESForm = ({ setLoading }) => {
       {type !== '' && (
         <>
           <FilePicker label='Pick File' setFile={setFile} />
-          {file && <SubmitButton text='Encrypt' />}
+          <AnimatePresence>
+            {file && <SubmitButton text='Encrypt' />}
+          </AnimatePresence>
         </>
       )}
     </form>

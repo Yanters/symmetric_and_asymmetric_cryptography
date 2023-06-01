@@ -4,6 +4,7 @@ import CustomSelect from './CustomSelect';
 import FilePicker from './FilePicker';
 import SubmitButton from './SubmitButton';
 import { toast } from 'react-toastify';
+import { AnimatePresence } from 'framer-motion';
 
 const AESForm = ({ setLoading }) => {
   const [keySize, setKeySize] = useState('');
@@ -74,7 +75,9 @@ const AESForm = ({ setLoading }) => {
       {keySize !== '' && (
         <>
           <FilePicker label='Pick File' setFile={setFile} />
+          <AnimatePresence>
           {file && <SubmitButton text='Encrypt' />}
+          </AnimatePresence>
         </>
       )}
     </form>
