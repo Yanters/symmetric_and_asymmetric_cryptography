@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 import '../styles/FilePicker.css';
+import CollapseList from './CollapseList';
 
 const FilePicker = ({ label, setFile }) => {
-  const [filesInfo, setFilesInfo] = useState({
-    name: '',
-    size: '',
-  });
+  const [filesInfo, setFilesInfo] = useState(null);
 
   const convertFileName = (name) => {
     if (name.length > 20) {
@@ -33,7 +31,7 @@ const FilePicker = ({ label, setFile }) => {
     // check if any file is selected
     if (e.target.files.length === 0) {
       setFile(null);
-      setFilesInfo({});
+      setFilesInfo(null);
       return;
     }
 
@@ -42,7 +40,7 @@ const FilePicker = ({ label, setFile }) => {
     setFilesInfo([
       ...Array.from(e.target.files).map((file) => {
         return {
-          name: convertFileName(file.name),
+          name: file.name,
           size: formatSizeUnits(file.size),
         };
       }),
@@ -74,25 +72,7 @@ const FilePicker = ({ label, setFile }) => {
           multiple={true}
         />
         <label htmlFor='file'>Upload</label>
-        <div className='fileInfoContainer'>
-          {filesInfo.length > 0 ? (
-            filesInfo.map((file, index) => (
-              <div key={index} className='fileElement'>
-                <div className='fileName' title={file.name}>
-                  {file.name}
-                </div>
-                <div className='fileSize'>{file.size}</div>
-              </div>
-            ))
-          ) : (
-            <div className='fileElement' key={0}>
-              <div className='fileName' title='NoFile.txt'>
-                NoFile.txt
-              </div>
-              <div className='fileSize'>0 KB</div>
-            </div>
-          )}
-        </div>
+        <CollapseList filesInfo={filesInfo} convertFileName={convertFileName} />
       </div>
     </motion.div>
   );
